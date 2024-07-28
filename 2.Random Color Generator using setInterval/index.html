@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2.Random Color Generator using setInterval</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+              *{
+                  margin: 0;
+                  padding: 0;
+                  box-sizing: border-box;
+                  font-family: poppins, sans-serif;
+              }
+
+              body{
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  min-height: 100vh;
+              }
+              .container{
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  width: 28rem;
+                  height: 28rem;
+                  /* background-color: rgb(145, 223, 72); */
+                  border-radius: 2rem;
+              }
+
+              p{
+  background: #FF4742;
+  border: 1px solid #FF4742;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  margin-right: 1rem;
+}
+
+p:hover,
+p:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #FF4742;
+}
+
+p:active {
+  opacity: .5;
+}
+              
+
+            button{
+        align-items: center;
+        appearance: none;
+        background-color: #3EB2FD;
+        background-image: linear-gradient(1deg, #4F58FD, #149BF3 99%);
+        background-size: calc(100% + 20px) calc(100% + 20px);
+        border-radius: 9px;
+        border-width: 0;
+        box-shadow: none;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-flex;
+        font-family: CircularStd,sans-serif;
+        font-size: 16px;
+        height: auto;
+        justify-content: center;
+        line-height: 1.5;
+        padding: 10px 9px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color .2s,background-position .2s;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: top;
+        white-space: nowrap;
+      }
+
+      button:active,
+      button:focus {
+        outline: none;
+      }
+
+      button:hover {
+        background-position: -20px -20px;
+      }
+
+      button:focus:not(:active) {
+        box-shadow: rgba(40, 170, 255, 0.25) 0 0 0 .125em;
+      }
+              
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <p>Current Color: <span>(255,255,255)</span></p>
+      <button role="button">Stop Changing</button>
+    </div>
+    <script>
+      const body = document.body;
+      const container = document.querySelector(".container");
+      const p = document.querySelector("p");
+      const span = document.querySelector("p span");
+      const button = document.querySelector("button");
+
+      function randomColorGenerator() {
+        const red = Math.floor(Math.random() * 256);
+        const green = Math.floor(Math.random() * 256);
+        const blue = Math.floor(Math.random() * 256);
+        let randomColor = `rgb(${red},${green},${blue})`;
+        return randomColor;
+      }
+
+      const id = setInterval(() => {
+        randomColor = randomColorGenerator();
+        body.style.backgroundColor = randomColor;
+        span.textContent = randomColor;
+      }, 1000);
+
+      button.addEventListener("click", () => {
+        clearInterval(id);
+      });
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+

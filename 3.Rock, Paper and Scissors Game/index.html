@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hamza | Rock, Paper and Scissors Game</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --color-blue-primary: rgb(23, 23, 187);
+        --color-blue-secondry: rgb(25, 25, 177);
+        --color-white-primary: white;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: rgb(245, 239, 239);
+      }
+
+      .container {
+        width: 400px;
+        height: 380px;
+        background-color: var(--color-white-primary);
+        border-radius: 1rem;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .big-hands {
+        font-size: 6rem;
+        padding: 1rem 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .big {
+        color: var(--color-blue-primary);
+      }
+
+      .big-hand1 {
+        transform: rotate(90deg);
+      }
+
+      .big-hand2 {
+        transform: rotate(-90deg) rotateY(180deg);
+      }
+
+      .text {
+        text-align: center;
+        font-size: 1.6rem;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .text-play {
+        color: var(--color-blue-secondry);
+        font-weight: 400;
+      }
+
+      .small-hands {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 3rem 4rem;
+        text-align: center;
+      }
+      .small {
+        color: var(--color-blue-primary);
+        opacity: 0.7;
+        transition: 0.2s ease-in;
+      }
+
+      .small:hover {
+        color: var(--color-blue-primary);
+        opacity: 100%;
+      }
+
+      .small-hands-text {
+        text-align: center;
+        margin-top: 0.6rem;
+        font-size: 1.2rem;
+        font-weight: 500;
+      }
+
+      .small i {
+        font-size: 3rem;
+      }
+
+      .small-hand3 i {
+        transform: rotate(-90deg) rotateY(180deg);
+      }
+
+
+      @keyframes verticalBounce {
+        0%,100% {
+          transform: rotate(10deg);
+        }
+        50% {
+          transform: rotate(-10deg);
+        }
+      }
+
+      .animate-hands {
+        animation: verticalBounce 0.7s ease 3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="big-hands">
+        <div class="big-hand1 big">
+          <i class="fa-regular fa-hand-back-fist"></i>
+        </div>
+        <div class="big-hand2 big">
+          <i class="fa-regular fa-hand-back-fist"></i>
+        </div>
+      </div>
+      <div class="text">
+        <span class="text-play">Let's Play!!</span>
+      </div>
+
+      <div class="small-hands">
+        <div class="small-hand1 small">
+          <i class="fa-regular fa-hand-back-fist"></i>
+          <p class="small-hands-text">Rock</p>
+        </div>
+        <div class="small-hand2 small"><i class="fa-regular fa-hand"></i>
+          <p class="small-hands-text">Paper</p>
+        </div>
+        <div class="small-hand3 small">
+          <i class="fa-regular fa-hand-scissors"></i>
+          <p class="small-hands-text">Scissors</p>
+        </div>
+      </div>
+    </div>
+    <script>
+      const smallHands = document.querySelectorAll(".small");
+      const bigHand1 = document.querySelector(".big-hand1 i");
+      const bigHand2 = document.querySelector(".big-hand2 i");
+      const textPlay = document.querySelector(".text-play");
+
+      const choices = ["fa-hand-back-fist", "fa-hand", "fa-hand-scissors"];
+
+      smallHands.forEach((hand, index) => {
+        hand.addEventListener("click", () => {
+          playGame(index);
+        });
+      });
+
+      function playGame(userChoice) {
+        textPlay.textContent = "Wait...";
+        bigHand1.className = "fa-regular fa-hand-back-fist animate-hands";
+        bigHand2.className = "fa-regular fa-hand-back-fist animate-hands";
+
+
+        setTimeout(() => {
+          bigHand1.style.transform = "";
+          bigHand2.style.transform = "";
+          bigHand1.classList.remove("animate-hands");
+          bigHand2.classList.remove("animate-hands");
+
+          bigHand1.className = `fa-regular ${choices[userChoice]}`;
+          const cpuChoice = Math.floor(Math.random() * 3);
+          bigHand2.className = `fa-regular ${choices[cpuChoice]}`;
+
+          if (userChoice === 2) {
+            bigHand1.style.transform = "rotate(-90deg) rotateY(180deg)";
+          }
+          if (cpuChoice === 2) {
+            bigHand2.style.transform = "rotate(-90deg) rotateY(180deg)";
+          }
+
+          const result = getResult(userChoice, cpuChoice);
+          displayResult(result);
+        }, 2000);
+      }
+
+      function getResult(userChoice, cpuChoice) {
+        if (userChoice === cpuChoice) {
+          return "It's a tie!";
+        } else if (
+          (userChoice === 0 && cpuChoice === 2) ||
+          (userChoice === 1 && cpuChoice === 0) ||
+          (userChoice === 2 && cpuChoice === 1)
+        ) {
+          return "You win!";
+        } else {
+          return "You lose!";
+        }
+      }
+
+      function displayResult(result) {
+        textPlay.textContent = result;
+      }
+    </script>
+  </body>
+</html>
